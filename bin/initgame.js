@@ -14,8 +14,8 @@ var init = {
         card_deactivate();
     }
 
-    var own_tower = new Tower(true);
-    var enemy_tower = new Tower(false);
+    own_tower = new Tower(true);
+    enemy_tower = new Tower(false);
 
     drawTowersStart(own_tower, enemy_tower);
 
