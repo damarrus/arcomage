@@ -8,7 +8,7 @@ var init = {
     initialize: function(){
     setFirstTurn();
     drawCardsStart();
-    drawResourcesStart();
+
 
     if (player1.player_id == 2){
         card_deactivate();
@@ -18,7 +18,7 @@ var init = {
     enemy_tower = new Tower(false);
 
     drawTowersStart(own_tower, enemy_tower);
-
+    drawResourcesStart();
     },
     auth: function(){
 

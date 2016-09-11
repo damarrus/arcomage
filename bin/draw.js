@@ -36,10 +36,13 @@ $('body').append('<div id = container2 class = container>');
 $('#container2').append('<div id = own_tower' + ' class = own_tower><p>' + own_tower.health + '</p></div>');
 $('#container2').append('<div id = enemy_tower' + ' class = enemy_tower><p>' + enemy_tower.health + '</p></div>');
 
+
+
+
 }
 
 function drawResourcesStart() {
-    $('body').append('<div id = container2 class = container>');
+    //$('body').append('<div id = container2 class = container>');
     for (i=1; i<=3; i++) {
 
         own_resource[i] = new Resource(true);
@@ -52,5 +55,4 @@ function drawResourcesStart() {
 
         $('#container2').append('<div id = enemy_res' + i + ' class = enemy_resource><p>' + enemy_resource[i].count + '</p></div>');
     }
-
 }
