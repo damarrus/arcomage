@@ -40,6 +40,11 @@ function getTurn() {
         dataType:"json"
     }).responseText;
     var values = $.parseJSON(response);
+    if (values.status_turn == 0 && player1.player_id == 2) {
+        values.status_turn = 1;
+    } else if (values.status_turn == 1 && player1.player_id == 2) {
+        values.status_turn = 0;
+    }
     return values;
 }
 
@@ -90,7 +95,7 @@ function renew(i)
 
             card[6].click(function()
             {
-                if ((turn.status_turn == 0 && player1.player_id == 1) || (turn.status_turn == 1 && player1.player_id == 2))
+                if (turn.status_turn == 1)
                 {
                     var i = ($(this).attr('id')).substring(4, 5);
                     setTurn(player1.player_id);
@@ -100,6 +105,7 @@ function renew(i)
                     var newCard = getNewCard();
                     renew(i*1);
                     card_deactivate();
+                    turndop = 1;
 
                 }
             });

@@ -10,4 +10,5 @@ var interval,
     card_id = 1,
     own_tower = {},
     enemy_tower = {},
-    turndop;
+    turndop,
+    turn_counter = 0;
