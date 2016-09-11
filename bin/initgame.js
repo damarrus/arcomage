@@ -7,7 +7,6 @@
 var init = {
     initialize: function(){
     setFirstTurn();
-
     drawCardsStart();
 
     if (player1.player_id == 2){

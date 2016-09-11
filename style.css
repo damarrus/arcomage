@@ -44,7 +44,6 @@
 	margin: 5px;
 	float: right;
 	background-color: darkblue;
-
 }
 
 p {
@@ -60,4 +59,22 @@ p {
 
 .green {
 	background-color: green;
+}
+
+.own_resource {
+	width: 20px;
+	height: 20px;
+	border: 5px solid black;
+	margin: 5px;
+	float: left;
+	background-color: darkblue;
+}
+
+.enemy_resource {
+	width: 20px;
+	height: 20px;
+	border: 5px solid black;
+	margin: 5px;
+	float: right;
+	background-color: darkblue;
 }
