@@ -12,4 +12,6 @@ var interval,
     enemy_tower = {},
     turndop,
     own_resource = [],
-    enemy_resource = [];
+    enemy_resource = [],
+    turn_counter = 0;
+

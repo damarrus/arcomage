@@ -42,7 +42,7 @@ var init = {
         btn2.click(function()
         {
             player1.player_id = 2;
-            turndop = 0;
+            turndop = 1;
             console.log('player1_id =' + player1.player_id);
             btn1.detach();
             btn2.detach();

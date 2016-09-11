@@ -14,7 +14,7 @@ function drawCardsStart() {
         $.extend(card[i], card_obj[i]);
 
         card[i].click(function () {
-            if ((turn.status_turn == 0 && player1.player_id == 1) || (turn.status_turn == 1 && player1.player_id == 2)) {
+            if (turn.status_turn == 1) {
                 var i = ($(this).attr('id')).substring(4, 5);
                 setTurn(player1.player_id);
                 setCurrentCard(card[i].card_id);
@@ -22,7 +22,7 @@ function drawCardsStart() {
                 var newCard = getNewCard();
                 renew(i * 1);
                 card_deactivate();
-
+                turndop = 1;
             }
         });
     }
