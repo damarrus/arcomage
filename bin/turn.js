@@ -73,17 +73,11 @@ function renew(i)
 {
 
     var j = i +1;
-    console.log($(card[i]).attr('id')+'attata');
     for ( j ; j<=7; j++)
     {
         if (j<=6)
         {
-            console.log($(card[j]).attr('id') + "f1");
-            //$(card[j]).attr('id', 'card' + (j - 1));
-
             $('#card'+j).attr('id', 'card'+(j-1));
-
-            console.log($(card[j-1]).attr('id') + 'f2');
         }
 
         if (j==7)
@@ -92,9 +86,7 @@ function renew(i)
             card_obj[6] = new Card(card_id);
             $('#container').append('<div id = card'+6+' class = card><p>'+card_obj[6].card_name+'</p></div>' );
             card[6] = $('#card'+(6));
-            console.log(card[6]);
             $.extend(card[6], card_obj[6]);
-            console.log(card[6]);
 
             card[6].click(function()
             {

@@ -18,7 +18,6 @@ function drawCardsStart() {
                 var i = ($(this).attr('id')).substring(4, 5);
                 setTurn(player1.player_id);
                 setCurrentCard(card[i].card_id);
-                interval = setInterval(listenServer, 1000);
                 card_delete($(this), i);
                 var newCard = getNewCard();
                 renew(i * 1);

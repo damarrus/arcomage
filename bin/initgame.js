@@ -31,15 +31,18 @@ var init = {
         btn1.click(function()
         {
             player1.player_id = 1;
+            turndop = 1;
             console.log('player1_id =' + player1.player_id);
             btn1.detach();
             btn2.detach();
             init.initialize();
+            interval = setInterval(listenServer, 1000);
         });
 
         btn2.click(function()
         {
             player1.player_id = 2;
+            turndop = 0;
             console.log('player1_id =' + player1.player_id);
             btn1.detach();
             btn2.detach();
