@@ -10,7 +10,8 @@ function listenServer() {
         clearInterval(interval);
         card_activate();
         currentcard = getcard(turn.status_card_id);
-        player_tower.useCard(currentcard);
+        console.log(own_tower);
+        own_tower.useCard(currentcard);
     }
 
 }

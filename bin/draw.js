@@ -29,3 +29,12 @@ function drawCardsStart() {
     }
 
 }
+
+function drawTowersStart(own_tower, enemy_tower) {
+
+$('body').append('<div id = container2 class = container>');
+
+$('#container2').append('<div id = own_tower' + ' class = own_tower><p>' + own_tower.health + '</p></div>');
+$('#container2').append('<div id = enemy_tower' + ' class = enemy_tower><p>' + enemy_tower.health + '</p></div>');
+
+}

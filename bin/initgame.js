@@ -14,13 +14,13 @@ var init = {
         card_deactivate();
     }
 
-    player_tower = new Tower(true);
-    enemy_tower = new Tower(false);
+    var own_tower = new Tower(true);
+    var enemy_tower = new Tower(false);
+
+    drawTowersStart(own_tower, enemy_tower);
 
     },
     auth: function(){
-
-
 
         $('body').append('<button id = btn1 class = btn type = button> "Игрок1" </button>');
         $('body').append('<button id = btn2 class = btn type = button> "Игрок2" </button>');

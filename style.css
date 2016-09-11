@@ -1,9 +1,17 @@
 .container {
-	
+
 	width: 700px;
 	height: 150px;
 	border: 1px solid black;
-	
+
+}
+
+.container2 {
+
+	width: 700px;
+	height: 150px;
+	border: 1px solid black;
+
 }
 
 .card {
@@ -15,6 +23,28 @@
 	float: left;
 	background-color: green;
 	
+}
+
+.own_tower {
+
+	width: 60px;
+	height: 130px;
+	border: 5px solid black;
+	margin: 5px;
+	float: left;
+	background-color: darkblue;
+
+}
+
+.enemy_tower {
+
+	width: 60px;
+	height: 130px;
+	border: 5px solid black;
+	margin: 5px;
+	float: right;
+	background-color: darkblue;
+
 }
 
 p {
