@@ -11,8 +11,10 @@ function Resource(owner){
     this.income = function(resource) {
         this.count += this.generation;
     }
-    this.cardAffect = function(cost) {
-        this.count -= cost;
+    this.cardAffect = function(Rtype,cost) {
+        if (this.resource_type == Rtype) {
+            this.count -= cost;
+        }
     }
 };
 

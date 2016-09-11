@@ -5,7 +5,6 @@
 function listenServer() {
     turn = getTurn();
     console.log(turn.status_turn);
-    console.log(turndop);
     if (((turn.status_turn == 1 && player1.player_id == 2) || (turn.status_turn == 0 && player1.player_id == 1)) &&
         turndop != turn.status_turn) {
         turndop = turn.status_turn;

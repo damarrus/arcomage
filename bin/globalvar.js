@@ -10,4 +10,6 @@ var interval,
     card_id = 1,
     own_tower = {},
     enemy_tower = {},
-    turndop;
+    turndop,
+    own_resource = [],
+    enemy_resource = [];

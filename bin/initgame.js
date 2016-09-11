@@ -8,6 +8,7 @@ var init = {
     initialize: function(){
     setFirstTurn();
     drawCardsStart();
+    drawResourcesStart();
 
     if (player1.player_id == 2){
         card_deactivate();
