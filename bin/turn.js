@@ -89,8 +89,11 @@ function renew(i)
         {
 
             card_obj[6] = new Card(card_id);
-            $('#container').append('<div id = card'+6+' class = card><p>'+card_obj[6].card_name+'</p></div>' );
-            card[6] = $('#card'+(6));
+            $('#container').append('<div id = card' + 6 + ' class = card>' +
+                '<p>' + card_obj[6].card_name +
+                '<br> Cost ' + card_obj[6].card_cost +
+                '<br> EnHp ' + card_obj[6].card_enemy_tower_hp +
+                '<br> SeHp ' + card_obj[6].card_self_tower_hp + '</p></div>');
             $.extend(card[6], card_obj[6]);
 
             card[6].click(function()
@@ -106,6 +109,11 @@ function renew(i)
                     renew(i*1);
                     card_deactivate();
                     turndop = 1;
+
+                    currentcard = getcard(card[i].card_id);
+                    own_tower.useCard(currentcard);
+                    enemy_tower.useCard(currentcard);
+                    redrawTowers(own_tower, enemy_tower);
 
                 }
             });

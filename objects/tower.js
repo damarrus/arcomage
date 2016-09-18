@@ -3,10 +3,31 @@
  */
 
 function Tower(owner){
-    this.health = 10;
+    this.health = 30;
     this.owner = owner;
     this.useCard = function(card){
-        this.health -= card.card_cost;
-        console.log(this.health);
+
+        if (owner)
+        {
+            this.health += card.card_self_tower_hp * 1;
+        }
+        else
+        {
+            enemy_tower.health += card.card_enemy_tower_hp * 1;
+        }
+        console.log("селф " + this.health);
+    };
+
+    this.useCardEnemy = function(card) {
+        if (!owner)
+        {
+            enemy_tower.health += card.card_self_tower_hp * 1;
+        }
+        else
+        {
+            this.health += card.card_enemy_tower_hp * 1;
+
+        }
+        console.log("енеми " + this.health);
     };
 }
