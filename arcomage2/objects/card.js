@@ -17,6 +17,8 @@ function Card(callback, i, card_id) {
             }, self);
         }, self);
     }
+
+
     this.deactivate = function () {
         this.div.addClass('gray');
     };
@@ -36,11 +38,25 @@ function Card(callback, i, card_id) {
                     item.deactivate();
                 });
                 game.changeTurnStage();
-                console.log(i);
+                deleteCard(i, function(){
+                    cards[6] = new Card(function () {
+                        console.log('новая карта отрисована');
+                        cards[6].deactivate();
+                    }, 6);
+                });
+                console.log(cards);
             } else {
                 console.log('nope');
             }
 
+        });
+        callback();
+    }
+    function deleteCard(i, callback) {
+        cards[i].div.remove();
+        cards.splice(i, 1);
+        cards.forEach(function (item, i, cards) {
+            cards[i].div.attr('id', 'card'+i);
         });
         callback();
     }
