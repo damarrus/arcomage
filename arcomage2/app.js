@@ -12,6 +12,3 @@ game.auth(function (playerID) {
     });
 
 });
-setTimeout(function () {
-
-}, 3000);

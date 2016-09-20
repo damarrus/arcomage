@@ -42,8 +42,8 @@ function drawTowersStart(own_tower, enemy_tower) {
 
 $('body').append('<div id = container2 class = container>');
 
-$('#container2').append('<div id = own_tower' + ' class = own_tower><p>' + own_tower.health + '</p></div>');
-$('#container2').append('<div id = enemy_tower' + ' class = enemy_tower><p>' + enemy_tower.health + '</p></div>');
+$('#container2').append('<div id = own_tower' + ' class = own_tower><p>' + own_tower.health + '<br>Свой тавер</p></div>');
+$('#container2').append('<div id = enemy_tower' + ' class = enemy_tower><p>' + enemy_tower.health + '<br>Чужой тавер</p></div>');
 
 }
 
@@ -56,7 +56,7 @@ function redrawTowers(own_tower, enemy_tower) {
 
 function drawResourcesStart() {
     //$('body').append('<div id = container2 class = container>');
-    for (i=1; i<=3; i++) {
+    for (var i=1; i<=3; i++) {
 
         own_resource[i] = new Resource(true);
         enemy_resource[i] = new Resource(false);

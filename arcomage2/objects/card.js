@@ -3,10 +3,12 @@
  */
 function Card(callback, i, card_id) {
     var self = this;
-    this.test = 321;
+    // процесс создания карты, либо по ID, либо случайная
     if (card_id) {
-        getCardByID(card_id ,function (data) {
-            setParams(data, function () {});
+        getCardByID(function (data) {
+            setParams(data, function () {
+                callback();
+            }, self);
         }, self);
     } else {
         getCardNew(function (data) {
@@ -18,12 +20,15 @@ function Card(callback, i, card_id) {
         }, self);
     }
 
-
     this.deactivate = function () {
         this.div.addClass('gray');
     };
     this.activate = function () {
         this.div.removeClass('gray');
+    };
+    this.use = function (callback) {
+        console.log('пиу пиу карта '+this.name);
+        callback();
     };
     function drawCard(i, callback, context) {
         $('#container').append('<div id = card' + i + ' class = card>' +
@@ -34,24 +39,24 @@ function Card(callback, i, card_id) {
         context.div = $('#card' + i);
         context.div.click(function () {
             if (game.getTurnStage() == 1) {
-                cards.forEach(function (item, j, cards) {
-                    item.deactivate();
-                });
-                game.changeTurnStage();
-                deleteCard(i, function(){
-                    cards[6] = new Card(function () {
-                        console.log('новая карта отрисована');
-                        cards[6].deactivate();
-                    }, 6);
-                });
-                console.log(cards);
+                game.setCurrentCard(cards[i], function () {
+                    game.changeTurnStage();
+                    deleteCard(i, function(){
+                        cards[6] = new Card(function () {
+                            console.log('новая карта отрисована');
+                            cards.forEach(function (item, j, cards) {
+                                item.deactivate();
+                            });
+                        }, 6);
+                    });
+                }, this);
             } else {
                 console.log('nope');
             }
-
         });
         callback();
     }
+
     function deleteCard(i, callback) {
         cards[i].div.remove();
         cards.splice(i, 1);
@@ -82,6 +87,7 @@ function Card(callback, i, card_id) {
             }
         });
     }
+    // Все свойства карты (которые мы получаем с базы)
     function setParams(data, callback, context) {
         context.id = data.card_id;
         context.name = data.card_name;
@@ -89,6 +95,6 @@ function Card(callback, i, card_id) {
         context.elem = data.card_elem;
         context.enemyTowerHP = data.card_enemy_tower_hp;
         context.selfTowerHP = data.card_self_tower_hp;
-        callback(context.id);
+        callback();
     }
 }

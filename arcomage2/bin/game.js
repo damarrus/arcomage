@@ -7,7 +7,7 @@
  * turnStage (int) - бывший turnDop. Теперь обозначает стадию хода
  *    0 - начало хода (применяется карта от противника)
  *    1 - ожидание хода игрока
- *    2 - конец хода (применяется сыгранная карта)
+ *    2 - конец хода (применяется выбранная карта)
  * turnCounter (int) - счётчик ходов
  */
 
@@ -28,6 +28,12 @@ function Game () {
     };
     this.changeTurnStage = function () {
         turnStage = 2;
+    };
+    this.setCurrentCard = function (card, callback) {
+        currentCard = card;
+        setCurrentCard(function () {
+            callback();
+        }, this);
     };
 
     this.auth = function (callback) {
@@ -75,31 +81,65 @@ function Game () {
         });
     };
     this.drawBoard = function (callback) {
-        $('body').append('<div id = container class = container>');
-        cards[0] = new Card(function () {
-            console.log('card0 отрисована');
-            cards[1] = new Card(function () {
-                console.log('card1 отрисована');
-                cards[2] = new Card(function () {
-                    console.log('card2 отрисована');
-                    cards[3] = new Card(function () {
-                        console.log('card3 отрисована');
-                        cards[4] = new Card(function () {
-                            console.log('card4 отрисована');
-                            cards[5] = new Card(function () {
-                                console.log('card5 отрисована');
-                                cards[6] = new Card(function () {
-                                    console.log('card6 отрисована');
-                                    callback();
-                                }, 6);
-                            }, 5);
-                        }, 4);
-                    }, 3);
-                }, 2);
-            }, 1);
-        }, 0);
-
-
+        var loader = 0;
+        (function (callbackload) {
+            var body = $('body');
+            body.append('<div id = container class = container>');
+            cards[0] = new Card(function () {
+                console.log('card0 отрисована');
+                cards[1] = new Card(function () {
+                    console.log('card1 отрисована');
+                    cards[2] = new Card(function () {
+                        console.log('card2 отрисована');
+                        cards[3] = new Card(function () {
+                            console.log('card3 отрисована');
+                            cards[4] = new Card(function () {
+                                console.log('card4 отрисована');
+                                cards[5] = new Card(function () {
+                                    console.log('card5 отрисована');
+                                    cards[6] = new Card(function () {
+                                        console.log('card6 отрисована');
+                                        callbackload();
+                                    }, 6);
+                                }, 5);
+                            }, 4);
+                        }, 3);
+                    }, 2);
+                }, 1);
+            }, 0);
+            body.append('<div id = container2 class = container>');
+            ownTower = new Tower(true, function () {
+                console.log('ownTower отрисована');
+                enemyTower = new Tower(false, function () {
+                    console.log('enemyTower отрисована');
+                    callbackload();
+                });
+            });
+            ownRes[0] = new Resource(true, 0, function () {
+                console.log('ownRes 0 отрисован');
+                enemyRes[0] = new Resource(false, 0, function () {
+                    console.log('enemyRes 0 отрисован');
+                    ownRes[1] = new Resource(true, 1, function () {
+                        console.log('ownRes 1 отрисован');
+                        enemyRes[1] = new Resource(false, 1, function () {
+                            console.log('enemyRes 1 отрисован');
+                            ownRes[2] = new Resource(true, 2, function () {
+                                console.log('ownRes 2 отрисован');
+                                enemyRes[2] = new Resource(false, 2, function () {
+                                    console.log('enemyRes 2 отрисован');
+                                    callbackload();
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+            }(function () {
+            loader++;
+            if (loader == 3) {
+                callback();
+            }
+        }));
     };
     this.start = function () {
         firstTurn(function (data) {
@@ -113,16 +153,17 @@ function Game () {
         }, self);
     };
 
-    //
     function listener() {
-        updStatus(function (data) {
+        getStatus(function (data) {
             turn = data.status_turn;
-            console.log('turn '+ turn + ' turnStage '+ turnStage +' turnCounter '+ turnCounter);
+            //console.log('turn '+ turn + ' turnStage '+ turnStage +' turnCounter '+ turnCounter);
+
             // Конец хода
             // нажали на карту, применили её и передали ход
             if (turn == 1 && turnStage == 2) {
+                currentCard.use(function () {});
                 ++turnCounter;
-                console.log('hod');
+                console.log('Конец хода!');
                 turnStage = 0;
                 changeTurn(function (data) {
                     turn = data;
@@ -132,20 +173,36 @@ function Game () {
             } else if (turn == 1 && turnStage == 0) {
                 console.log('Начало хода!');
                 if (turnCounter > 1 || playerID == 2) { // защита от применения карты на первом ходу второго игрока
-                    console.log('ВЗРЫВ!');
-                    cards.forEach(function (item, j, cards) {
-                        item.activate();
-                    });
+                    currentCard = new Card(function () {
+                        currentCard.use(function () {
+                            cards.forEach(function (item, j, cards) {
+                                item.activate();
+                            });
+                            console.log(currentCard);
+                        });
+                    }, 0, data.status_card_id);
                 }
                 turnStage = 1;
+
             }
         }, self);
     }
-    function updStatus(callback, context) {
+    function setCurrentCard(callback, context) {
         $.ajax({
             type: "POST",
             url: "server/status.php",
-            data: 'action=updstatus&player_id='+playerID,
+            data: 'action=setcurrentcard&player_id='+playerID+'&card_id='+currentCard.id,
+            dataType:"json",
+            success: function (data) {
+                callback.call(context, data);
+            }
+        });
+    }
+    function getStatus(callback, context) {
+        $.ajax({
+            type: "POST",
+            url: "server/status.php",
+            data: 'action=getstatus&player_id='+playerID,
             dataType:"json",
             success: function (data) {
                 callback.call(context, data);

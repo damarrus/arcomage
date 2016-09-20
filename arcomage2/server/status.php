@@ -6,7 +6,7 @@
  * Time: 15:57
  */
 require 'connect.php';
-if ($_POST['action'] == 'updstatus') {
+if ($_POST['action'] == 'getstatus') {
 
     $query = "SELECT status_turn, status_card_id FROM status WHERE status_id=1";
     $result = mysqli_query($mysqli, $query) or die("Ошибка вставки" . mysqli_error());
@@ -34,4 +34,10 @@ if ($_POST['action'] == 'updstatus') {
         WHERE status_player1_id = 1 AND status_player2_id = 2";
     mysqli_query($mysqli, $query) or die("Ошибка вставки" . mysqli_error());
     echo 0;
+} elseif ($_POST['action'] == 'setcurrentcard') {
+    $card_id = $_POST['card_id'];
+    $query = "UPDATE status SET status_card_id = " . $card_id . "
+        WHERE status_player1_id = 1 AND status_player2_id = 2";
+    mysqli_query($mysqli, $query) or die("Ошибка вставки" . mysqli_error());
+    echo 1;
 }

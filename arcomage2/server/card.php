@@ -15,4 +15,11 @@ if ($_POST['action'] == 'getcardnew') {
     $result = mysqli_query($mysqli, $query) or die("Ошибка вставки" . mysqli_error());
     $result = mysqli_fetch_assoc($result);
     echo json_encode($result);
+} elseif ($_POST['action'] == 'getcardbyid') {
+    $id = $_POST['card_id'];
+
+    $query = "SELECT * FROM card WHERE card_id=" . $id;
+    $result = mysqli_query($mysqli, $query) or die("Ошибка вставки" . mysqli_error());
+    $result = mysqli_fetch_assoc($result);
+    echo json_encode($result);
 }
