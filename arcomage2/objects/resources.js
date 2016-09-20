@@ -10,11 +10,17 @@ function Resource(owner, type, callback){
     this.generation = 1;
     this.type = type;
 
-    drawResource(owner, type, callback);
+    this.addRes = function () {
+        this.count += this.generation;
+        this.div.children('p').text(this.count);
+    };
 
-    function drawResource(owner, type, callback) {
+    drawResource(owner, type, callback, self);
+
+    function drawResource(owner, type, callback, context) {
         var own = (owner) ? 'own_res' : 'enemy_res';
         $('#container2').append('<div id =' + own + type + ' class ='+ own +'><p>' + self.count + '</p></div>');
+        context.div = $('#'+own + type);
         callback();
     }
 

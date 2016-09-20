@@ -28,8 +28,12 @@ function Card(callback, i, card_id) {
     };
     this.use = function (owner ,callback) {
         if (owner) {
+            ownTower.health += this.selfTowerHP;
+            enemyTower.health += this.enemyTowerHP;
             console.log(this.name+', я выбираю тебя!');
         } else {
+            ownTower.health -= this.selfTowerHP;
+            enemyTower.health -= this.enemyTowerHP;
             console.log('OMG! Мне присунул '+this.name);
         }
         callback();
@@ -43,6 +47,7 @@ function Card(callback, i, card_id) {
         context.div = $('#card' + i);
         context.div.click(function () {
             if (game.getTurnStage() == 1) {
+                var i = context.div.attr('id').substr(4);
                 game.setCurrentCard(cards[i], function () {
                     game.changeTurnStage();
                     deleteCard(i, function(){
@@ -60,12 +65,11 @@ function Card(callback, i, card_id) {
         });
         callback();
     }
-
     function deleteCard(i, callback) {
         cards[i].div.remove();
         cards.splice(i, 1);
-        cards.forEach(function (item, i, cards) {
-            cards[i].div.attr('id', 'card'+i);
+        cards.forEach(function (item, j, cards) {
+            cards[j].div.attr('id', 'card'+j);
         });
         callback();
     }

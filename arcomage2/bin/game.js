@@ -168,22 +168,33 @@ function Game () {
                 changeTurn(function (data) {
                     turn = data;
                 }, self);
+                enemyRes.forEach(function (item, i, ownRes) {
+                    item.addRes();
+                });
             // Начало хода
             // получили по лицу картой противника
             } else if (turn == 1 && turnStage == 0) {
                 console.log('Начало хода!');
-                if (turnCounter > 1 || playerID == 2) { // защита от применения карты на первом ходу второго игрока
+                ownRes.forEach(function (item, i, ownRes) {
+                    item.addRes();
+                });
+                // временная хрень, чтобы у второго игрока на первом ходу обновлялись ресурсы противника
+                if (turnCounter == 1 && playerID == 2) {
+                    enemyRes.forEach(function (item, i, ownRes) {
+                        item.addRes();
+                    });
+                }
+                // временная защита от применения карты на первом ходу первого игрока
+                if (turnCounter > 1 || playerID == 2) {
                     currentCard = new Card(function () {
                         currentCard.use(false, function () {
                             cards.forEach(function (item, j, cards) {
                                 item.activate();
                             });
-                            console.log(currentCard);
                         });
                     }, 0, data.status_card_id);
                 }
                 turnStage = 1;
-
             }
         }, self);
     }

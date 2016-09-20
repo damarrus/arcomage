@@ -11,7 +11,7 @@ function Tower(owner, callback){
 
     function drawTower(owner, callback) {
         var own = (owner) ? 'own_tower' : 'enemy_tower';
-        $('#container2').append('<div id =' + own + ' class =' + own + '><p>' + self.health + '<br></p></div>');
+        $('#container2').append('<div id =' + own + ' class =' + own + '><p>'+ own + '<br>' + + self.health + '</p></div>');
         callback();
     }
 
