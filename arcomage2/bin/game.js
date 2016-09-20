@@ -161,7 +161,7 @@ function Game () {
             // Конец хода
             // нажали на карту, применили её и передали ход
             if (turn == 1 && turnStage == 2) {
-                currentCard.use(function () {});
+                currentCard.use(true, function () {});
                 ++turnCounter;
                 console.log('Конец хода!');
                 turnStage = 0;
@@ -174,7 +174,7 @@ function Game () {
                 console.log('Начало хода!');
                 if (turnCounter > 1 || playerID == 2) { // защита от применения карты на первом ходу второго игрока
                     currentCard = new Card(function () {
-                        currentCard.use(function () {
+                        currentCard.use(false, function () {
                             cards.forEach(function (item, j, cards) {
                                 item.activate();
                             });

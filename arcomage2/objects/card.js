@@ -26,8 +26,12 @@ function Card(callback, i, card_id) {
     this.activate = function () {
         this.div.removeClass('gray');
     };
-    this.use = function (callback) {
-        console.log('пиу пиу карта '+this.name);
+    this.use = function (owner ,callback) {
+        if (owner) {
+            console.log(this.name+', я выбираю тебя!');
+        } else {
+            console.log('OMG! Мне присунул '+this.name);
+        }
         callback();
     };
     function drawCard(i, callback, context) {
