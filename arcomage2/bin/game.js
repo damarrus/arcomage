@@ -31,6 +31,12 @@ function Game () {
     };
     this.setCurrentCard = function (card, callback) {
         currentCard = card;
+        $('#currentcard').detach();
+        $('#container2').append('<div id = currentcard class = "card current_card" >' +
+            '<p>' + currentCard.name +
+            '<br> Cost ' + currentCard.cost +
+            '<br> EnHp ' + currentCard.enemyTowerHP +
+            '<br> SeHp ' + currentCard.selfTowerHP + '</p></div>');
         setCurrentCard(function () {
             callback();
         }, this);
@@ -153,6 +159,13 @@ function Game () {
         }, self);
     };
 
+    function checkWin() {
+        if (enemyTower.getHealth() <= 0 || ownTower.getHealth() >= 50) {
+            alert('Like a boss!');
+        } else if (ownTower.getHealth() <= 0 || enemyTower.getHealth() >= 50) {
+            alert('You are looser!');
+        }
+    }
     function listener() {
         getStatus(function (data) {
             turn = data.status_turn;
@@ -171,6 +184,7 @@ function Game () {
                 enemyRes.forEach(function (item, i, ownRes) {
                     item.addRes();
                 });
+                checkWin();
             // Начало хода
             // получили по лицу картой противника
             } else if (turn == 1 && turnStage == 0) {
@@ -187,7 +201,14 @@ function Game () {
                 // временная защита от применения карты на первом ходу первого игрока
                 if (turnCounter > 1 || playerID == 2) {
                     currentCard = new Card(function () {
+                        $('#currentcard').detach();
+                        $('#container2').append('<div id = currentcard class = "card current_card" >' +
+                            '<p>' + currentCard.name +
+                            '<br> Cost ' + currentCard.cost +
+                            '<br> EnHp ' + currentCard.enemyTowerHP +
+                            '<br> SeHp ' + currentCard.selfTowerHP + '</p></div>');
                         currentCard.use(false, function () {
+                            checkWin();
                             cards.forEach(function (item, j, cards) {
                                 item.activate();
                             });

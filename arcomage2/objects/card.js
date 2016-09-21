@@ -26,17 +26,17 @@ function Card(callback, i, card_id) {
     this.activate = function () {
         this.div.removeClass('gray');
     };
-    this.use = function (owner ,callback) {
-        if (owner) {
-            ownTower.health += this.selfTowerHP;
-            enemyTower.health += this.enemyTowerHP;
+    this.use = function (ownerCard, callback) {
+            ownTower.getDmg(ownerCard, self.selfTowerHP, self.enemyTowerHP, function () {
+                enemyTower.getDmg(ownerCard, self.selfTowerHP, self.enemyTowerHP, function () {
+                    callback();
+                });
+            });
+        if (ownerCard) {
             console.log(this.name+', я выбираю тебя!');
         } else {
-            ownTower.health -= this.selfTowerHP;
-            enemyTower.health -= this.enemyTowerHP;
-            console.log('OMG! Мне присунул '+this.name);
+            console.log('OMG! Мне присунул '+self.name);
         }
-        callback();
     };
     function drawCard(i, callback, context) {
         $('#container').append('<div id = card' + i + ' class = card>' +
