@@ -44,6 +44,8 @@ function Game () {
 
     this.auth = function (callback) {
         var body = $('body');
+        body.css('background', 'url(img/papers.jpg) no-repeat');
+        body.append('<h3 style="color: white">Дальше вы не пройдете, пока не получите бумаги</h3>');
         body.append('<input id ="input" class ="input" type="text">');
         body.append('<button id = "auth" class = btn type = button> Авторизация </button>');
         body.append('<button id = "reg" class = btn type = button> Регистрация </button><br>');
